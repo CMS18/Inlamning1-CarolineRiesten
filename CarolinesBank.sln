@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29424.173
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarolinesBank.Webb", "CarolinesBank.Webb\CarolinesBank.Webb.csproj", "{C557A77C-F257-45D3-8CA4-C7D332FA97FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarolinesBank.Test", "CarolinesBank.Test\CarolinesBank.Test.csproj", "{7CAF31C6-6CEF-4CFC-A8B3-A4C4D73C2E61}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C557A77C-F257-45D3-8CA4-C7D332FA97FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C557A77C-F257-45D3-8CA4-C7D332FA97FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C557A77C-F257-45D3-8CA4-C7D332FA97FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C557A77C-F257-45D3-8CA4-C7D332FA97FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CAF31C6-6CEF-4CFC-A8B3-A4C4D73C2E61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CAF31C6-6CEF-4CFC-A8B3-A4C4D73C2E61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CAF31C6-6CEF-4CFC-A8B3-A4C4D73C2E61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CAF31C6-6CEF-4CFC-A8B3-A4C4D73C2E61}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {94E9E04C-DC25-409A-A7C2-970F73997C8B}
+	EndGlobalSection
+EndGlobal
