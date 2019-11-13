@@ -6,21 +6,29 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CarolinesBank.Webb.Models;
+using CarolinesBank.Data;
+using CarolinesBank.Webb.ViewModels;
 
 namespace CarolinesBank.Webb.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly BankRepository repo; 
+        public HomeController(ILogger<HomeController> logger, BankRepository repo)
         {
             _logger = logger;
+            this.repo = repo; 
         }
 
         public IActionResult Index()
         {
-            return View();
+            var model = new CustomersViewModel()
+            {
+                ListOfCurrentCustomers = repo.getAllCustomers()
+            };
+           
+            return View(model);
         }
 
         public IActionResult Privacy()
