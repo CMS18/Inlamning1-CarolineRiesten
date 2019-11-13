@@ -8,5 +8,7 @@ namespace CarolinesBank.Data
     {
         public int CustomerId { get; set; }
         public string Name { get; set; }
+
+        public List<Account> CustomerAccounts { get; set; }
     }
 }
