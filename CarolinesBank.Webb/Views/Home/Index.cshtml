@@ -1,4 +1,6 @@
-﻿@{
+﻿@using CarolinesBank.Webb.ViewModels
+@model CustomersViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,3 +8,21 @@
     <h1 class="display-4">Welcome</h1>
     <p> Carolines Riesten</p>
 </div>
+
+<h2> Förteckning över kunder </h2>
+<ul>
+
+    @foreach (var customer in Model.ListOfCurrentCustomers)
+    {
+        <li> <h4> Kund </h4></li>
+        <li> KundID: @customer.CustomerId</li>
+        <li>Namn: @customer.Name</li>
+        <li><h4> Accounts </h4> </li>
+        foreach (var account in customer.CustomerAccounts)
+        {
+            <li>KontoId: @account.AccountId</li>
+            <li>Saldo: @account.Balance</li>
+        }
+    }
+
+</ul>
