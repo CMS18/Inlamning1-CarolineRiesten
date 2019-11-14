@@ -67,9 +67,41 @@ namespace CarolinesBank.Data
             }
         };
 
+        public decimal WithDraw(int id, int amount)
+        {
+          
+            var currentAccount = FindAccount(id);
+            if (amount < 0) throw new ArgumentOutOfRangeException(nameof(amount), "the withrawel can not be a negative number");
+            if (currentAccount.Balance - amount < 0) throw new ArgumentOutOfRangeException(nameof(amount), "the withrawel can not be more than the balance");
+            
+            var newBalance = currentAccount.Balance - amount;
+            return newBalance;
+                    
+        }
+
         public List<Customer> getAllCustomers()
         {
             return listOfCustomers;
+        }
+
+        public decimal Deposit(int id, decimal amount)
+        {
+            if (amount < 0) throw new ArgumentOutOfRangeException(nameof(amount), "the amount can not be a negative number");
+            var currentAccount = FindAccount(id);
+            var newBalance = currentAccount.Balance + amount; 
+            return newBalance;
+        }
+
+        public Account FindAccount(int id)
+        {
+            var listofAccount = new List<Account>();
+            foreach (var a in listOfCustomers)
+            {
+                listofAccount.AddRange(a.CustomerAccounts);
+            }
+            var currentAccount = listofAccount.Find(a => a.AccountId == id);
+
+            return currentAccount; 
         }
     }
 }
