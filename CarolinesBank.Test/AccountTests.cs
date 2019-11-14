@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace CarolinesBank.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class AccountTests
     {
         [TestMethod]
         public void TestMethod1()
