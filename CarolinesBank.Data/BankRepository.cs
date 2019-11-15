@@ -67,9 +67,99 @@ namespace CarolinesBank.Data
             }
         };
 
+        public Account WithDraw(int id, decimal amount)
+        {
+
+            var currentAccount = FindAccount(id);
+            try
+            {
+                if (amount < 0) 
+                {
+                    throw new ArgumentOutOfRangeException(nameof(amount), "the withrawel can not be a negative number");
+                }
+            }
+            catch (Exception ex) 
+            {
+                currentAccount.Message = ex.Message;
+                currentAccount.Success = false; 
+                return currentAccount; 
+            }
+
+            try
+            {
+                if(currentAccount.Balance - amount < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(amount), "the withrawel can not be more than the balance");
+                }
+            }
+            catch (Exception ex)
+            {
+                currentAccount.Message = ex.Message;
+                currentAccount.Success = false;
+                return currentAccount; 
+            }
+               
+
+            currentAccount.Balance-= amount;
+
+            return currentAccount; 
+        }
+
         public List<Customer> getAllCustomers()
         {
             return listOfCustomers;
+        }
+
+        public Account Deposit(int id, decimal amount)
+        {
+            var currentAccount = FindAccount(id); // programmera för success kasta felmeddelanden
+
+            if (amount < 0)
+            {
+                currentAccount.Success = false;
+
+            }
+            else
+            {
+                currentAccount.Balance += amount;
+                currentAccount.Success = true;
+            }
+
+            return currentAccount;
+            //try
+            //{
+            //    if(amount > 0)
+            //    {
+
+            //        currentAccount.Balance += amount;
+            //        currentAccount.Success = true; 
+            //        //return currentAccount;
+            //    }
+            //}
+            //catch (Exception ex)
+            //    {
+            //    currentAccount.Success = false;
+            //    currentAccount.Message = ex.Message;  /*"the amount can not be a negative number";*/
+            //    //return false;
+            //    }
+            //return currentAccount; 
+        }
+
+     
+
+
+
+
+        public Account FindAccount(int id)
+        {
+            var listofAccount = new List<Account>();
+            foreach (var a in listOfCustomers)
+            {
+                listofAccount.AddRange(a.CustomerAccounts);
+            }
+            var currentAccount = listofAccount.Find(a => a.AccountId == id);
+
+            return currentAccount;
         }
     }
 }
