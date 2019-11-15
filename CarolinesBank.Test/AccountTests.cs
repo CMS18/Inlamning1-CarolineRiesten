@@ -113,5 +113,24 @@ namespace CarolinesBank.Test
 
            //Expect a expection attribut tillagt
         }
+
+        [TestMethod]
+        public void WithDrawBalanceCanNotBeNegative2()
+        {
+            // Arrange           
+            var id = 1;
+            var amount = 340;
+            BankRepository repo = new BankRepository();
+            var currentAccount = repo.FindAccount(id);
+            /*currentAccount.Balance - amount; should give a false successrespons*/
+            currentAccount.Success = false;
+            var expected = currentAccount.Success;
+        
+            // Act
+            Account actualBalance = repo.WithDraw(id, amount);
+            // Assert
+            Assert.IsFalse(actualBalance.Success);
+          
+        }
     }
 }
