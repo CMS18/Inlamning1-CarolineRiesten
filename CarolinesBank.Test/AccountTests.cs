@@ -19,10 +19,10 @@ namespace CarolinesBank.Test
           
             var expected = currentAccount.Balance + amount;
             // Act
-            decimal actualBalance = repo.Deposit(id, amount);
+            Account actualBalance = repo.Deposit(id, amount);
             // Assert
 
-            Assert.AreEqual(expected, actualBalance);
+            Assert.AreEqual(expected, actualBalance.Balance);
         }
 
         [TestMethod]
@@ -37,10 +37,27 @@ namespace CarolinesBank.Test
 
             var expected = currentAccount.Balance + amount;
             // Act
-            decimal actualBalance = repo.Deposit(id, amount);
+            Account actualBalance = repo.Deposit(id, amount);
             // Assert
-
+            Assert.AreEqual(currentAccount.Balance, actualBalance.Balance);
            //Expects an exeption
+        }
+
+        [TestMethod]
+        public void CanNotDepositNegative2()
+        {
+            // Arrange           
+            var id = 1;
+            var amount = -34;
+            BankRepository repo = new BankRepository();
+            var currentAccount = repo.FindAccount(id);
+
+            var expected = currentAccount.Balance + amount;
+            // Act
+            Account actualBalance = repo.Deposit(id, amount);
+            // Assert
+            Assert.AreEqual(currentAccount.Balance, actualBalance.Balance);
+           
         }
 
         [TestMethod]
