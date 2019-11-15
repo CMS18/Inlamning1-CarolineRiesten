@@ -67,16 +67,42 @@ namespace CarolinesBank.Data
             }
         };
 
-        public decimal WithDraw(int id, decimal amount)
+        public Account WithDraw(int id, decimal amount)
         {
-          
+
             var currentAccount = FindAccount(id);
-            if (amount < 0) throw new ArgumentOutOfRangeException(nameof(amount), "the withrawel can not be a negative number");
-            if (currentAccount.Balance - amount < 0) throw new ArgumentOutOfRangeException(nameof(amount), "the withrawel can not be more than the balance");
-            
-            var newBalance = currentAccount.Balance - amount;
-            return newBalance;
-                    
+            try
+            {
+                if (amount < 0) 
+                {
+                    throw new ArgumentOutOfRangeException(nameof(amount), "the withrawel can not be a negative number");
+                }
+            }
+            catch (Exception ex) 
+            {
+                currentAccount.Message = ex.Message;
+                currentAccount.Success = false; 
+                return currentAccount; 
+            }
+
+            try
+            {
+                if(currentAccount.Balance - amount < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(amount), "the withrawel can not be more than the balance");
+                }
+            }
+            catch (Exception ex)
+            {
+                currentAccount.Message = ex.Message;
+                currentAccount.Success = false;
+                return currentAccount; 
+            }
+               
+
+            currentAccount.Balance-= amount;
+
+            return currentAccount; 
         }
 
         public List<Customer> getAllCustomers()
@@ -90,8 +116,8 @@ namespace CarolinesBank.Data
 
             if (amount < 0)
             {
-                currentAccount.Success = false; 
-               
+                currentAccount.Success = false;
+
             }
             else
             {
@@ -104,7 +130,7 @@ namespace CarolinesBank.Data
             //{
             //    if(amount > 0)
             //    {
-                    
+
             //        currentAccount.Balance += amount;
             //        currentAccount.Success = true; 
             //        //return currentAccount;
@@ -118,11 +144,11 @@ namespace CarolinesBank.Data
             //    }
             //return currentAccount; 
         }
-        
-            //throw new ArgumentOutOfRangeException(nameof(amount), "the amount can not be a negative number");*/
-            
-           
-        
+
+     
+
+
+
 
         public Account FindAccount(int id)
         {
@@ -133,7 +159,7 @@ namespace CarolinesBank.Data
             }
             var currentAccount = listofAccount.Find(a => a.AccountId == id);
 
-            return currentAccount; 
+            return currentAccount;
         }
     }
 }

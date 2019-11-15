@@ -9,7 +9,7 @@
 }
 <section class=" row container-fluid">
 
-    <form class="col-8" asp-controller="Account" asp-action="Index" method="post">
+    <form class="col-8" asp-controller="Account" asp-action="HandleSubmit" method="post">
 
         <label class="col-5" asp-for="@Model.CurrentAccount.AccountId">
             Accountnumber:
@@ -25,21 +25,14 @@
         <input class="col-6" asp-for="@Model.Amount" />
         <br />
         <span asp-validation-for="@Model.Amount"></span>
-      <br />
+        <br />
 
         <input type="submit" value="Deposit" asp-for="@Model.Action" />
 
 
 
         <input type="submit" value="Withdraw" asp-for="@Model.Action" />
-        @if (Model.CurrentAccount != null)
-        {
-            if (Model.CurrentAccount.AccountId != 0)
-            {
-                <label class="col-12" asp-for="@Model.CurrentAccount.Balance"> @Model.CurrentAccount.Balance</label>
-            }
-        }
-
     </form>
 
+    <partial name="_PartialSaldo.cshtml" model="@Model"/>
 </section>

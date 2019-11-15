@@ -20,20 +20,23 @@ namespace CarolinesBank.Webb.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var model = new AccountViewModel(); 
+
+            var model = new AccountViewModel();
+
+
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(AccountViewModel model)
+        public IActionResult HandleSubmit (AccountViewModel model)
         {
             var isAccount = repo.FindAccount(model.CurrentAccount.AccountId);
             model.CurrentAccount = isAccount; 
             if (model.CurrentAccount == null) 
             {
                ViewBag.Message = "The account doesn't exist"; 
-                return View(model); 
+                //return View(model); 
             }
 
             if (ModelState.IsValid)
@@ -45,21 +48,38 @@ namespace CarolinesBank.Webb.Controllers
                     if (!currentAccount.Success)
                     {
                         ViewBag.Message = "The amount can not be a negative number";
-                        model.CurrentAccount = currentAccount; 
-                        return View(model);
+                        model.CurrentAccount = currentAccount;
+                        return View("Index",model);
                     }
                     else
                     {
-                        model.CurrentAccount = currentAccount; 
-                        return View(model); 
+                        ModelState.Clear();
+                        model.CurrentAccount = currentAccount;
+                        return View("Index", model);
                     }
                 }
                 else
                 {
-                    var isOK = repo.WithDraw(model.CurrentAccount.AccountId, model.Amount);
+                    var currentAccount = repo.WithDraw(model.CurrentAccount.AccountId, model.Amount);
+
+                    if(!currentAccount.Success)
+                    {
+                        model.CurrentAccount = currentAccount; 
+                        ViewBag.Message = currentAccount.Message;
+                        return View("Index",model);
+                    }
+                    else
+                    {
+                        ModelState.Clear();
+                        model.CurrentAccount = currentAccount;
+                        return View("Index", model);
+                    }
+                   
                 }
             }
-            return View(model);
+            //ModelState.Clear();
+            return View("Index",model);
         }
+
     }
 }
