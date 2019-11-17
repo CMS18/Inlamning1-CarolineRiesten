@@ -1,0 +1,45 @@
+﻿@using CarolinesBank.Webb.ViewModels
+@model TransferViewModel
+
+@{
+    if (ViewBag.Message != null)
+    {
+        <p class="alert-info"> @ViewBag.Message;</p>
+    }
+}
+<section class=" row container-fluid">
+    <h5>Transfer</h5>
+    <form class="col-8" asp-controller="Transfer" asp-action="HandleTransfer" method="post">
+
+        <label class="col-5" asp-for="@Model.FromAccountId">
+            From accountnumber:
+        </label>
+
+        <input class="col-6" asp-for="@Model.FromAccountId" />
+        <br />
+        <span asp-validation-for="@Model.FromAccountId"></span>
+        <br />
+
+        <label class="col-5" asp-for="@Model.ToAccountId">
+            To accountnumber:
+        </label>
+
+        <input class="col-6" asp-for="@Model.ToAccountId" />
+        <br />
+        <span asp-validation-for="@Model.ToAccountId"></span>
+        <br />
+
+        <label class="col-5" asp-for="@Model.Amount">
+            Amount:
+        </label>
+        <input class="col-6" asp-for="@Model.Amount" />
+        <br />
+        <span asp-validation-for="@Model.Amount"></span>
+        <br />
+
+        <input type="submit" value="Transfer" />
+
+    </form>
+
+    <partial name="_PartialSaldo.cshtml" model="@Model" />
+</section>
