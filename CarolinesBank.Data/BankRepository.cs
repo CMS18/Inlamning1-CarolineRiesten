@@ -69,37 +69,18 @@ namespace CarolinesBank.Data
 
         public Account WithDraw(int id, decimal amount)
         {
-
             var currentAccount = FindAccount(id);
-            try
-            {
+         
                 if (amount < 0)
                 {
                     throw new ArgumentOutOfRangeException(nameof(amount), "the withrawel can not be a negative number");
                 }
-            }
-            catch (Exception ex)
-            {
-                currentAccount.Message = ex.Message;
-                currentAccount.Success = false;
-                return currentAccount;
-            }
-
-            try
-            {
+         
                 if (currentAccount.Balance - amount < 0)
                 {
                     throw new ArgumentOutOfRangeException(nameof(amount), "the withrawel can not be more than the balance");
                 }
-            }
-            catch (Exception ex)
-            {
-                currentAccount.Message = ex.Message;
-                currentAccount.Success = false;
-                return currentAccount;
-            }
-
-
+       
             currentAccount.Balance -= amount;
 
             return currentAccount;
@@ -139,23 +120,7 @@ namespace CarolinesBank.Data
             }
 
             return currentAccount;
-            //try
-            //{
-            //    if(amount > 0)
-            //    {
-
-            //        currentAccount.Balance += amount;
-            //        currentAccount.Success = true; 
-            //        //return currentAccount;
-            //    }
-            //}
-            //catch (Exception ex)
-            //    {
-            //    currentAccount.Success = false;
-            //    currentAccount.Message = ex.Message;  /*"the amount can not be a negative number";*/
-            //    //return false;
-            //    }
-            //return currentAccount; 
+ 
         }
 
 

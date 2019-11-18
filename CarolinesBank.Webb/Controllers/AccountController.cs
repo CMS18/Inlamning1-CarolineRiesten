@@ -36,7 +36,7 @@ namespace CarolinesBank.Webb.Controllers
             if (model.CurrentAccount == null) 
             {
                ViewBag.Message = "The account doesn't exist"; 
-                //return View(model); 
+                return View("Index", model); 
             }
 
             if (ModelState.IsValid)
@@ -60,24 +60,40 @@ namespace CarolinesBank.Webb.Controllers
                 }
                 else
                 {
-                    var currentAccount = repo.WithDraw(model.CurrentAccount.AccountId, model.Amount);
-
-                    if(!currentAccount.Success)
+                    try
                     {
-                        model.CurrentAccount = currentAccount; 
-                        ViewBag.Message = currentAccount.Message;
-                        return View("Index",model);
+                        repo.WithDraw(model.CurrentAccount.AccountId, model.Amount);
+                        //ModelState.Clear();
+                        //model.CurrentAccount = currentAccount;
+                        //return View("Index", model);
                     }
-                    else
+                    catch(ArgumentOutOfRangeException ex) 
                     {
-                        ModelState.Clear();
-                        model.CurrentAccount = currentAccount;
+                        ViewBag.Message = ex.Message;                    
                         return View("Index", model);
                     }
+                    //var currentAccount = repo.WithDraw(model.CurrentAccount.AccountId, model.Amount);
+
+                    //if(!currentAccount.Success)
+                    //{
+                    //    model.CurrentAccount = currentAccount; 
+                    //    ViewBag.Message = currentAccount.Message;
+                    //    return View("Index",model);
+                    //}
+                    //else
+                    //{
+                    //    ModelState.Clear();
+                    //    model.CurrentAccount = currentAccount;
+                    //    return View("Index", model);
+                    //}
                    
                 }
             }
-            //ModelState.Clear();
+            else
+            {
+                return View("Index", model);
+            }
+            ModelState.Clear();
             return View("Index",model);
         }
 

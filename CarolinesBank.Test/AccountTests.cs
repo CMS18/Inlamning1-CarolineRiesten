@@ -79,7 +79,7 @@ namespace CarolinesBank.Test
 
 
         [TestMethod]
-        //[ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CanNotWithDrawNegative()
         {
             // Arrange           
@@ -92,7 +92,7 @@ namespace CarolinesBank.Test
             // Act
             Account actualBalance = repo.WithDraw(id, amount);
             // Assert
-            Assert.AreNotEqual(expected, actualBalance.Balance);
+            //Assert.AreNotEqual(expected, actualBalance.Balance);
           // Expects an expcection
         }
 
@@ -115,6 +115,7 @@ namespace CarolinesBank.Test
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void WithDrawBalanceCanNotBeNegative2()
         {
             // Arrange           
@@ -130,7 +131,7 @@ namespace CarolinesBank.Test
             Account actualBalance = repo.WithDraw(id, amount);
             // Assert
             Assert.IsFalse(actualBalance.Success);
-          
+            //Expect a expection attribut tillagt
         }
     }
 }
