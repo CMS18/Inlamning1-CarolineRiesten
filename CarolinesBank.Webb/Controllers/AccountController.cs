@@ -63,30 +63,13 @@ namespace CarolinesBank.Webb.Controllers
                     try
                     {
                         repo.WithDraw(model.CurrentAccount.AccountId, model.Amount);
-                        //ModelState.Clear();
-                        //model.CurrentAccount = currentAccount;
-                        //return View("Index", model);
                     }
                     catch(ArgumentOutOfRangeException ex) 
                     {
                         ViewBag.Message = ex.Message;                    
                         return View("Index", model);
                     }
-                    //var currentAccount = repo.WithDraw(model.CurrentAccount.AccountId, model.Amount);
-
-                    //if(!currentAccount.Success)
-                    //{
-                    //    model.CurrentAccount = currentAccount; 
-                    //    ViewBag.Message = currentAccount.Message;
-                    //    return View("Index",model);
-                    //}
-                    //else
-                    //{
-                    //    ModelState.Clear();
-                    //    model.CurrentAccount = currentAccount;
-                    //    return View("Index", model);
-                    //}
-                   
+            
                 }
             }
             else
