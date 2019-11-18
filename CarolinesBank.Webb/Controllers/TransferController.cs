@@ -27,27 +27,33 @@ namespace CarolinesBank.Webb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult HandleTransfer(TransferViewModel vm)
         {
-            var fromAccount = repo.FindAccount(vm.FromAccountId);
-            if (fromAccount == null)
+            if (!ModelState.IsValid)
             {
-                ViewBag.Message = "The account doesn't exist";
+                ViewBag.Message = "Något gick fel, var god försök igen";
                 return View("Index");
             }
-            else
+
+            var fromAccount = repo.FindAccount(vm.FromAccountId);
+            var toAccount = repo.FindAccount(vm.ToAccountId);
+            if (fromAccount == null || toAccount == null)
             {
-                var toAccount = repo.FindAccount(vm.ToAccountId);
-                if (toAccount == null)
-                {
-                    ViewBag.Message = "The account doesn't exist";
-                    return View("Index");
-                }
-                else
-                {
-                    //TODO: koll för minusbelopp och för höga belopp
-                    //använda redan skriven kod?
-                    //antagligen för många if satser i varann, Göra try-catch istället?
-                }
+                ViewBag.Message = "Invalid AccountId";
+                return View("Index");
             }
+
+            try
+            {
+                repo.DepositFromAccount(fromAccount, toAccount, vm.Amount);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View("Index");
+            }
+
+            vm.NewBalanceFrom = fromAccount.Balance;
+            vm.NewBalanceTo = toAccount.Balance;
+            return View("TransferFeedBack", vm);
         }
     }
 }

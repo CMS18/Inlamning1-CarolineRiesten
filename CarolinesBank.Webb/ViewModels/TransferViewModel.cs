@@ -16,5 +16,7 @@ namespace CarolinesBank.Webb.ViewModels
         [Range(0.01, 9999999.99, ErrorMessage = "The amount must be between 0.01 - 9 999 999,99")]
         [DataType(DataType.Currency)]
         public decimal Amount { get; set; }
+        public decimal NewBalanceFrom { get; set; }
+        public decimal NewBalanceTo { get; set; }
     }
 }
