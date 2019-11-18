@@ -73,21 +73,21 @@ namespace CarolinesBank.Data
             var currentAccount = FindAccount(id);
             try
             {
-                if (amount < 0) 
+                if (amount < 0)
                 {
                     throw new ArgumentOutOfRangeException(nameof(amount), "the withrawel can not be a negative number");
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 currentAccount.Message = ex.Message;
-                currentAccount.Success = false; 
-                return currentAccount; 
+                currentAccount.Success = false;
+                return currentAccount;
             }
 
             try
             {
-                if(currentAccount.Balance - amount < 0)
+                if (currentAccount.Balance - amount < 0)
                 {
                     throw new ArgumentOutOfRangeException(nameof(amount), "the withrawel can not be more than the balance");
                 }
@@ -96,18 +96,31 @@ namespace CarolinesBank.Data
             {
                 currentAccount.Message = ex.Message;
                 currentAccount.Success = false;
-                return currentAccount; 
+                return currentAccount;
             }
-               
 
-            currentAccount.Balance-= amount;
 
-            return currentAccount; 
+            currentAccount.Balance -= amount;
+
+            return currentAccount;
         }
 
         public List<Customer> getAllCustomers()
         {
             return listOfCustomers;
+        }
+
+        public void DepositFromAccount(Account from, Account to, decimal amount)
+        {
+            if (from.Balance < amount) throw new ArgumentOutOfRangeException(nameof(amount),
+                 "No coverage for this transfer");
+            if (amount < 0) throw new ArgumentOutOfRangeException(nameof(amount),
+                "Amount can not be negative");
+            else
+            {
+                from.Balance -= amount;
+                to.Balance += amount;
+            }
         }
 
         public Account Deposit(int id, decimal amount)
@@ -145,7 +158,7 @@ namespace CarolinesBank.Data
             //return currentAccount; 
         }
 
-     
+
 
 
 
